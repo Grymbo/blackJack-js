@@ -66,4 +66,11 @@ const pedirCarta = () => {
 
 pedirCarta();
 
+const valorCarta = (pedirCartas) => {
+    let puntos = isNaN(pedirCartas[0]) ? (pedirCartas[0] === 'A' ? 11 : 10) : parseInt(pedirCartas);
+    
+     console.log(puntos);
+}
+
+valorCarta('AD');
 
