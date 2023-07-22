@@ -30,8 +30,6 @@ function crearDeack() {
         }
     }
 
-    console.log(deck);
-
     /**
      * shuffle_.shuffle(list) source
     Returns a shuffled copy of the list, using a version of the Fisher-Yates shuffle.
@@ -41,6 +39,31 @@ function crearDeack() {
      */
     deck = _.shuffle(deck);
     console.log(deck);
+
+    return deck;
 }
 
 crearDeack();
+
+/**
+ * 
+ * La función pedirCarta() toma la última carta del arreglo deck, 
+ * la elimina del deck y la devuelve. Si el deck está vacío al intentar pedir una carta, 
+ * se lanzará una excepción con el mensaje "No hay mas cartas en el deck". Para usar esta función, 
+ * simplemente debes llamarla como en el último renglón del código: pedirCarta();. 
+ * Recuerda que cada vez que llames a esta función, se tomará una carta del deck y se eliminará de él.
+ */
+const pedirCarta = () => {
+    // Verifica si el deck esta vacio, si no lo esta continuara con el proceso de pedri cartas.
+    if(deck.length === 0) {
+        throw 'No hay mas cartas en el deck';
+    }
+
+    const pedirCartas = deck.pop();
+
+    return pedirCartas;
+}
+
+pedirCarta();
+
+
