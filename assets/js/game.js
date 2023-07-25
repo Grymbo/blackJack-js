@@ -8,6 +8,12 @@
 let deck = []; // Un arreglo vacio para almacenar  las cartas dse la baraja
 const tipos = ['C', 'D', 'H', 'S'];
 const especiales = ['A', 'J', 'Q', 'K'];
+let puntosJugador = 0;
+let puntosComputadora = 0;
+
+// Referencias del HTML
+const btnPedir = document.querySelector('#btnPedir');
+const puntosHtml = document.querySelectorAll('small');
 
 /**
  * el código crea una baraja de cartas de póker mediante dos bucles anidados que 
@@ -38,7 +44,6 @@ function crearDeack() {
     => [4, 1, 6, 3, 5, 2]
      */
     deck = _.shuffle(deck);
-    console.log(deck);
 
     return deck;
 }
@@ -64,13 +69,20 @@ const pedirCarta = () => {
     return pedirCartas;
 }
 
-pedirCarta();
-
+// comvierte el valor de las cartas en numeros reales a su correpondiente
+// 1,2,3....10 y A = 11 y J,Q,K=10
 const valorCarta = (pedirCartas) => {
     let puntos = isNaN(pedirCartas[0]) ? (pedirCartas[0] === 'A' ? 11 : 10) : parseInt(pedirCartas);
-    
-     console.log(puntos);
+    return puntos;
 }
 
-valorCarta('AD');
+// Eventos
+btnPedir.addEventListener('click', () => {
+   const carta = pedirCarta(); 
+
+   puntosJugador = puntosJugador + valorCarta(carta);
+   console.log(puntosJugador);
+
+   puntosHtml[0].innerText = puntosJugador;
+})
 
