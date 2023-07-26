@@ -17,6 +17,7 @@ const puntosHtml = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
 const divCartasComputadora = document.querySelector('#computadora-cartas');
 const btnDetener = document.querySelector('#btnDetener');
+const btnNuevo = document.querySelector('#btnNuevo');
 
 /**
  * el código crea una baraja de cartas de póker mediante dos bucles anidados que 
@@ -92,12 +93,10 @@ btnPedir.addEventListener('click', () => {
     divCartasJugador.append(imgCarta);
 
     if(puntosJugador > 21) {
-        console.warn('jajajaj loser');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador);
     } else if(puntosJugador === 21) {
-        console.warn('Ganaste');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador);
@@ -108,6 +107,22 @@ btnDetener.addEventListener('click', () => {
     btnPedir.disabled = true;
     btnDetener.disabled = true;
     turnoComputadora(puntosJugador);
+})
+
+btnNuevo.addEventListener('click', () => {
+    deck = crearDeack();
+
+    puntosJugador = 0;
+    puntosComputadora = 0;
+
+    puntosHtml[0].innerText = 0;
+    puntosHtml[1].innerText = 0;
+
+    divCartasComputadora.innerHTML = '';
+    divCartasJugador.innerHTML = '';
+
+    btnPedir.disabled = false;
+    btnDetener.disabled = false;
 })
 
 // Turno de la computadora
@@ -127,4 +142,18 @@ const turnoComputadora = (puntosMinimos) => {
             break;
         }
     } while((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+
+    setTimeout(() => {
+        if(puntosComputadora === puntosMinimos) {
+            alert('Empate, nadie gana!!!');
+        } else if(puntosJugador === 21) {
+            alert('You win, you are GOOD!!!!');
+        } else if(puntosMinimos > 21) {
+            alert('La Computadora GAna');
+        } else if(puntosComputadora > 21) {
+            alert('You Win!!!');
+        } else {
+            alert('La computadora gana');
+        }
+    }, 100);
 }
