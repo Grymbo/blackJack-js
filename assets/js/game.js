@@ -15,6 +15,8 @@ let puntosComputadora = 0;
 const btnPedir = document.querySelector('#btnPedir');
 const puntosHtml = document.querySelectorAll('small');
 const divCartasJugador = document.querySelector('#jugador-cartas');
+const divCartasComputadora = document.querySelector('#computadora-cartas');
+const btnDetener = document.querySelector('#btnDetener');
 
 /**
  * el código crea una baraja de cartas de póker mediante dos bucles anidados que 
@@ -92,8 +94,37 @@ btnPedir.addEventListener('click', () => {
     if(puntosJugador > 21) {
         console.warn('jajajaj loser');
         btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
     } else if(puntosJugador === 21) {
         console.warn('Ganaste');
+        btnPedir.disabled = true;
+        btnDetener.disabled = true;
+        turnoComputadora(puntosJugador);
     }
 })
 
+btnDetener.addEventListener('click', () => {
+    btnPedir.disabled = true;
+    btnDetener.disabled = true;
+    turnoComputadora(puntosJugador);
+})
+
+// Turno de la computadora
+const turnoComputadora = (puntosMinimos) => {
+    do {
+        const carta = pedirCarta(); 
+
+        puntosComputadora = puntosComputadora + valorCarta(carta);
+        puntosHtml[1].innerText = puntosComputadora;
+
+        const imgCarta = document.createElement('img');
+        imgCarta.src = `assets/cartas/${carta}.png`;
+        imgCarta.classList.add('carta');
+        divCartasComputadora.append(imgCarta);
+
+        if(puntosMinimos > 21) {
+            break;
+        }
+    } while((puntosComputadora < puntosMinimos) && (puntosMinimos <= 21));
+}
