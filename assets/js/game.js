@@ -14,6 +14,7 @@ let puntosComputadora = 0;
 // Referencias del HTML
 const btnPedir = document.querySelector('#btnPedir');
 const puntosHtml = document.querySelectorAll('small');
+const divCartasJugador = document.querySelector('#jugador-cartas');
 
 /**
  * el código crea una baraja de cartas de póker mediante dos bucles anidados que 
@@ -78,11 +79,21 @@ const valorCarta = (pedirCartas) => {
 
 // Eventos
 btnPedir.addEventListener('click', () => {
-   const carta = pedirCarta(); 
+    const carta = pedirCarta(); 
 
-   puntosJugador = puntosJugador + valorCarta(carta);
-   console.log(puntosJugador);
+    puntosJugador = puntosJugador + valorCarta(carta);
+    puntosHtml[0].innerText = puntosJugador;
 
-   puntosHtml[0].innerText = puntosJugador;
+    const imgCarta = document.createElement('img');
+    imgCarta.src = `assets/cartas/${carta}.png`;
+    imgCarta.classList.add('carta');
+    divCartasJugador.append(imgCarta);
+
+    if(puntosJugador > 21) {
+        console.warn('jajajaj loser');
+        btnPedir.disabled = true;
+    } else if(puntosJugador === 21) {
+        console.warn('Ganaste');
+    }
 })
 
